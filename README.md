@@ -1,0 +1,2 @@
+# NewbieLet
+LeetCode Repository
