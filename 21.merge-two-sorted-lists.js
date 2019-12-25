@@ -18,32 +18,32 @@
  * @return {ListNode}
  */
 var mergeTwoLists = function(l1, l2) {
-  var result = []
+  let last = {}
+  let result = last
 
-  while (l1 && l2) {
-    if (l1.val < l2.val) {
-      (l1.val != null) && result.push(new ListNode(l1.val))
-      l1 = l1.next
-    } else {
-      (l2.val != null) && result.push(new ListNode(l2.val))
+  // if (!(l1 || l2)) return ''
+
+  l1 = l1 || {}
+  l2 = l2 || {}
+
+  if (!(l1.val != null || l2.val != null )) return ''
+
+  while (l1 && l1.val != null) {
+    if (l2 != null && (l1.val > l2.val)) {
+      last.next = l2
       l2 = l2.next
+    } else {
+      last.next = l1
+      l1 = l1.next
     }
+    last.next && (last = last.next)
+  }
+  
+  if (l2 && (l2.val != null || l2.next))  {
+    last.next = l2
   }
 
-  if (l1 && l1.val != null) {
-    result = result.concat(l1)
-  } else if (l2 && l2.val != null) {
-    result = result.concat(l2)
-  }
-
-  let rl = result.shift() || ''
-
-  result.reduce(function (pre, cur) {
-    pre.next = cur
-    return cur
-  }, rl)
-
-  return rl
+  return result.next
 
 };
 // @lc code=end
@@ -74,5 +74,5 @@ lll.reduce(function (pre, c) {
 },l2)
 
 
-const re = mergeTwoLists(new ListNode(), new ListNode())
+const re = mergeTwoLists(new ListNode(), new ListNode(0))
 console.log(re);
